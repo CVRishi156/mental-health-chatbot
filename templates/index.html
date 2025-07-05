@@ -1,69 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title> Psychiatrist Bot</title>
-  <link rel="shortcut icon" href="static/img/mhcicon.png" type="image/x-icon">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Companion</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .chat-header {
+            background: linear-gradient(135deg, #4a6bff, #6a5acd);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+        .chat-messages {
+            height: 500px;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            max-width: 80%;
+            line-height: 1.5;
+        }
+        .bot-message {
+            background: white;
+            margin-right: auto;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .user-message {
+            background: #4a6bff;
+            color: white;
+            margin-left: auto;
+        }
+        .timetable {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .timetable th {
+            background: #4a6bff;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .timetable td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        .timetable tr:nth-child(even) {
+            background-color: #f8f9ff;
+        }
+        .timetable tr:hover {
+            background-color: #f0f4ff;
+        }
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #e0e0e0;
+            background: white;
+        }
+        #messageInput {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            outline: none;
+        }
+        #sendButton {
+            margin-left: 10px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #4a6bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .options-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        .option-btn {
+            padding: 8px 16px;
+            background: #e0e7ff;
+            color: #4a6bff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        .problem-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        .problem-btn {
+            padding: 12px 20px;
+            background: #4a6bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .modify-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f4ff;
+            border-radius: 8px;
+        }
+        .modify-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-
-<div class="title">
-  <svg viewBox="0 0 640 512" title="robot">
-        <path fill="currentColor" d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z" />
-      </svg>
-  <h3>Chatbot</h3>
- <div>
-<div id="chatbot" class="main-card collapsed">
-  <button id="chatbot_toggle">
-    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15 4v7H5.17l-.59.59-.58.58V4h11m1-2H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm5 4h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1z"/></svg>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-</svg>
-  </button>
-  <div class="main-title">
-    <div>
-      <svg viewBox="0 0 640 512" title="robot">
-        <path fill="currentColor" d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z" />
-      </svg>
-    </div>
-    <span>
-      <i class="fas fa-bug"></i> Psychiatrist Bot <i class="fas fa-bug"></i>
-
-    </span>
-
-  </div>
-  <!-- partial:index.partial.html -->
-
-  <main class="msger-chat">
-    <div class="msg left-msg">
-      <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"></div>
-
-        <div class="msg-bubble">
-          <div class="msg-info">
-            <div class="msg-info-name"> Psychiatrist Bot</div>
-          
-            <div class="msg-info-time"><time id="clock"></time></div>
-
-
-
-
-          </div>
-          <div class="msg-text">
-            Welcome to Psychiatrist, a safe and supportive space where you can share your thoughts and feelings without fear of judgement.
-          </div>
+    <div class="chat-container">
+        <div class="chat-header">
+            <i class="fas fa-heart"></i> Mental Health Companion
         </div>
-        
-      </div>
-    </main>
-    <form class="msger-inputarea">
-      <input type="text" class="msger-input" id="textInput" placeholder="Enter your message...">
-      <button type="submit" class="msger-send-btn">Send</button>
-    </form>
-  <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
-  <script src="{{ url_for('static', filename='js/bot.js') }}"></script>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                Welcome! I can help with stress, anxiety, depression, anger, or loneliness. What are you experiencing?
+            </div>
+        </div>
+        <div class="problem-selector">
+            <button class="problem-btn" onclick="selectProblem('stress')">Stress</button>
+            <button class="problem-btn" onclick="selectProblem('anxiety')">Anxiety</button>
+            <button class="problem-btn" onclick="selectProblem('depression')">Depression</button>
+            <button class="problem-btn" onclick="selectProblem('anger')">Anger</button>
+            <button class="problem-btn" onclick="selectProblem('loneliness')">Loneliness</button>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="messageInput" placeholder="Type your message..." autocomplete="off">
+            <button id="sendButton"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script>
+        const userId = "user_" + Math.random().toString(36).substr(2, 9);
+        let currentProblem = null;
+
+        function addMessage(text, sender) {
+            const messageClass = sender === 'bot' ? 'bot-message' : 'user-message';
+            $('#chatMessages').append(`<div class="message ${messageClass}">${text}</div>`);
+            scrollToBottom();
+        }
+
+        function displayTimetable(routine, problem) {
+            let html = `
+                <div class="message bot-message">
+                    <strong>${problem.charAt(0).toUpperCase() + problem.slice(1)} Timetable</strong>
+                    <table class="timetable">
+                        <thead><tr><th>Time</th><th>Activity</th></tr></thead>
+                        <tbody>
+            `;
+            for (const [time, activity] of Object.entries(routine)) {
+                html += `<tr><td>${time}</td><td>${activity}</td></tr>`;
+            }
+            html += `
+                        </tbody>
+                    </table>
+                    <div class="modify-section">
+                        <strong>Modify Timetable:</strong>
+                        <div class="modify-controls">
+                            <input type="text" id="modifyActivity" placeholder="Activity name">
+                            <input type="text" id="modifyTime" placeholder="Time (e.g., 7 AM)">
+                            <button onclick="addActivity()">Add</button>
+                            <button onclick="removeActivity()">Remove</button>
+                        </div>
+                        <small>Example: "add yoga at 7 AM" or "remove breakfast"</small>
+                    </div>
+                </div>
+            `;
+            $('#chatMessages').append(html);
+            scrollToBottom();
+        }
+
+        function selectProblem(problem) {
+            $('#messageInput').val(problem);
+            sendMessage();
+        }
+
+        function addActivity() {
+            const activity = $('#modifyActivity').val();
+            const time = $('#modifyTime').val();
+            if (activity && time) {
+                $('#messageInput').val(`add ${activity} at ${time}`);
+                sendMessage();
+                $('#modifyActivity').val('');
+                $('#modifyTime').val('');
+            }
+        }
+
+        function removeActivity() {
+            const activity = $('#modifyActivity').val();
+            if (activity) {
+                $('#messageInput').val(`remove ${activity}`);
+                sendMessage();
+                $('#modifyActivity').val('');
+            }
+        }
+
+        function sendMessage() {
+            const message = $('#messageInput').val().trim();
+            if (message) {
+                addMessage(message, 'user');
+                $('#messageInput').val('');
+
+                $.ajax({
+                    url: 'http://localhost:5000/get',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        msg: message,
+                        user_id: userId
+                    }),
+                    success: function(response) {
+                        if (response.status === 'tips' || response.status === 'question') {
+                            addMessage(response.response, 'bot');
+                            if (response.options) {
+                                let optionsHtml = '<div class="options-container">';
+                                response.options.forEach(option => {
+                                    optionsHtml += `<button class="option-btn" onclick="$('#messageInput').val('${option}'); sendMessage()">${option}</button>`;
+                                });
+                                optionsHtml += '</div>';
+                                $('#chatMessages').append(optionsHtml);
+                            }
+                        } else if (response.status === 'timetable' || response.status === 'timetable_updated') {
+                            addMessage(response.response, 'bot');
+                            displayTimetable(response.routine, response.problem);
+                        } else {
+                            addMessage(response.response, 'bot');
+                        }
+                        scrollToBottom();
+                    },
+                    error: function() {
+                        addMessage("Sorry, I can't connect to the server right now. Please try again later.", 'bot');
+                    }
+                });
+            }
+        }
+
+        function scrollToBottom() {
+            const chatMessages = $('#chatMessages')[0];
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        $('#sendButton').click(sendMessage);
+        $('#messageInput').keypress(function(e) {
+            if (e.which === 13) sendMessage();
+        });
+    </script>
 </body>
 </html>

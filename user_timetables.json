@@ -1,0 +1,82 @@
+{
+    "user_nsco0xbkv": {
+        "stress": {
+            "06:00-06:15": "Deep breathing exercises",
+            "06:15-06:45": "Gentle yoga/stretching",
+            "07:00-07:30": "Healthy breakfast (protein + complex carbs)",
+            "12:30-13:15": "Balanced lunch with vegetables",
+            "18:30-19:30": "Family/friends quality time",
+            "21:00-21:30": "Wind down routine",
+            "21:30-06:00": "Quality sleep (8.5 hours)"
+        }
+    },
+    "user_dufwc362n": {
+        "stress": {
+            "06:00-06:15": "Deep breathing exercises",
+            "06:15-06:45": "Gentle yoga/stretching",
+            "07:00-07:30": "Healthy breakfast (protein + complex carbs)",
+            "12:30-13:15": "Balanced lunch with vegetables",
+            "18:30-19:30": "Family/friends quality time",
+            "21:00-21:30": "Wind down routine",
+            "21:30-06:00": "Quality sleep (8.5 hours)"
+        }
+    },
+    "user_z20eg71cp": {
+        "stress": {
+            "06:00-06:15": "Deep breathing exercises",
+            "06:15-06:45": "Gentle yoga/stretching",
+            "07:00-07:30": "Healthy breakfast (protein + complex carbs)",
+            "12:30-13:15": "Balanced lunch with vegetables",
+            "18:30-19:30": "Family/friends quality time",
+            "21:00-21:30": "Wind down routine",
+            "21:30-06:00": "Quality sleep (8.5 hours)"
+        }
+    },
+    "user_vm7y93xjo": {
+        "anxiety": {
+            "06:00-06:15": "Guided meditation",
+            "06:15-06:45": "Light exercise",
+            "07:00-07:30": "Protein-rich breakfast",
+            "12:30-13:15": "Omega-3 rich lunch",
+            "16:00-16:15": "Calming tea break",
+            "19:00-19:30": "Digital detox",
+            "21:00-21:30": "Relaxation",
+            "21:30-06:00": "Quality sleep"
+        }
+    },
+    "user_573i72vnp": {
+        "depression": {
+            "06:00-06:15": "Sunlight exposure",
+            "06:15-06:45": "Gentle movement",
+            "07:00-07:30": "Nutrient-dense breakfast",
+            "12:30-13:15": "Healthy lunch",
+            "15:00-15:30": "Short walk outside",
+            "18:30-19:30": "Social connection",
+            "21:00-21:30": "Wind down routine",
+            "21:30-06:00": "Quality sleep"
+        }
+    },
+    "user_02yaigrx0": {
+        "anger": {
+            "06:00-06:15": "Mindful breathing",
+            "06:15-06:45": "Cooling breakfast (smoothie)",
+            "07:00-07:30": "Anger prevention planning",
+            "12:30-13:15": "Balanced lunch",
+            "16:00-16:30": "Physical release (exercise)",
+            "19:00-19:30": "Cool-down period",
+            "21:00-21:30": "Forgiveness reflection",
+            "21:30-06:00": "Quality sleep"
+        }
+    },
+    "user_p1i5vbvcz": {
+        "stress": {
+            "06:00-06:15": "Deep breathing exercises",
+            "06:15-06:45": "Gentle yoga/stretching",
+            "07:00-07:30": "Healthy breakfast (protein + complex carbs)",
+            "12:30-13:15": "Balanced lunch with vegetables",
+            "18:30-19:30": "Family/friends quality time",
+            "21:00-21:30": "Wind down routine",
+            "21:30-06:00": "Quality sleep (8.5 hours)"
+        }
+    }
+}
