@@ -14,7 +14,7 @@ Here're some of the project's best features:
 *   Multilingual
 *   Mental Health support
    
-![Screenshot from 2025-01-21 15-06-06](https://github.com/user-attachments/assets/9a5852e9-96ba-4c42-bf4a-bd50622c417c)
+
 
 # How to Set Up it?
 
